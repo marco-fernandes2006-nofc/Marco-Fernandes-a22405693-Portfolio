@@ -19,14 +19,16 @@ class Licenciatura(models.Model):
 # ======================
 class UnidadeCurricular(models.Model):
     SEMESTRE_CHOICES = [
-        (1, '1º Semestre'),
-        (2, '2º Semestre'),
+    ('S1', '1º Semestre'),
+    ('S2', '2º Semestre'),
+    ('A', 'Anual'),
+    ('S', 'Semestral'),
     ]
 
     nome = models.CharField(max_length=150)
     descricao = models.TextField()
     ano_curricular = models.PositiveIntegerField()
-    semestre = models.IntegerField(choices=SEMESTRE_CHOICES)
+    semestre = models.CharField(max_length=2, choices=SEMESTRE_CHOICES)
 
     licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE)
 
@@ -77,14 +79,13 @@ class Projeto(models.Model):
 class TFC(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
-    ano = models.PositiveIntegerField()
+    rating = models.PositiveIntegerField()
 
     autores = models.CharField(max_length=200)
     orientadores = models.CharField(max_length=200)
 
     tecnologias = models.ManyToManyField(Tecnologia)
 
-    repositorio_git = models.URLField(blank=True)
     documento = models.FileField(upload_to='tfc/')
 
     def __str__(self):
@@ -145,21 +146,11 @@ class MakingOf(models.Model):
     descricao = models.TextField()
     erros = models.TextField()
     justificacao_opcoes = models.TextField()
-
+    imagem = models.ImageField(upload_to='data/images/', blank=True)
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"MakingOf - {self.projeto.nome}"
-
-
-class RegistoMakingOf(models.Model):
-    imagem = models.ImageField(upload_to='makingof/')
-    descricao = models.TextField()
-
-    makingof = models.ForeignKey(MakingOf, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Registo de {self.makingof.projeto.nome}"
 
 
 # ======================
