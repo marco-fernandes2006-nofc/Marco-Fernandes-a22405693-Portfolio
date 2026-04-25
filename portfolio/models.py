@@ -146,7 +146,7 @@ class MakingOf(models.Model):
     descricao = models.TextField()
     erros = models.TextField()
     justificacao_opcoes = models.TextField()
-    imagem = models.ImageField(upload_to='data/images/', blank=True)
+    imagem = models.ImageField(upload_to='portfolio/makingof', blank=True)
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
 
     def __str__(self):
