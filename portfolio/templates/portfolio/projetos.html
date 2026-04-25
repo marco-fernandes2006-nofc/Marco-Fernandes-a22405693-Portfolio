@@ -1,0 +1,36 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>Projetos</h2>
+
+<section>
+    {% for projeto in projetos %}
+    <article>
+        <header>
+            <h3>{{ projeto.nome }}</h3>
+            <h3>Descrição</h3>
+            <p>{{ projeto.descricao }}</p>
+            <h3>Conceitos Aplicados</h3>
+            <p>{{ projeto.conceitos_aplicados }}</p>
+            <p>Data de realização: {{ projeto.data_realizacao }}</p>
+        </header>
+
+        <section>
+            <h4>Tecnologias</h4>
+            <ul>
+                {% for tecnologia in projeto.tecnologias.all %}
+                    <li>
+                        <a href="{% url 'tecnologia' tecnologia.id %}">
+                        {{ tecnologia.nome }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h3>Unidade curricular: {{ projeto.unidade_curricular }}</h3>
+        </section>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

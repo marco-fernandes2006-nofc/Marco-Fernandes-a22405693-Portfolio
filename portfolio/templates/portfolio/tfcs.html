@@ -1,0 +1,46 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>TFCs</h2>
+
+<section>
+    {% for tfc in tfcs %}
+    <article>
+        <header>
+            <h3>{{ tfc.titulo }}</h3>
+            <h3>Descrição</h3>
+            <p>{{ tfc.descricao }}</p>
+            <h3>Rating: {{ tfc.rating }}/20</h3>
+            
+        </header>
+
+        <section>
+            <h4>Autores</h4>
+            <p>{{ tfc.autores }}</p>
+
+            <h4>Orientadores</h4>
+            <p>{{ tfc.orientadores }}</p>
+        </section>
+
+        <section>
+            <h4>Tecnologias</h4>
+            <ul>
+                {% for tecnologia in tfc.tecnologias.all %}
+                    <li>
+                        <a href="{% url 'tecnologia' tecnologia.id %}">
+                        {{ tecnologia.nome }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h3>Documento</h3>
+            <a href="{{ tfc.documento }}" target="_blank">
+                Download PDF
+            </a>
+        </section>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

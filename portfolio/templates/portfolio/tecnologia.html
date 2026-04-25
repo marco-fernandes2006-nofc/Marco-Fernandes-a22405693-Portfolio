@@ -1,0 +1,16 @@
+<!-- templates/escola/curso.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+    <h2>{{ tecnologia.nome }} - {{ tecnologia.get_tipo_display }}</h2>
+
+    <img src="{{ tecnologias.logo.url }}" alt="Imagem do logotipo {{ tecnologia.logo.name }}">
+    
+    <h3>Descrição</h3>
+    <p>{{ tecnologia.descricao }}</p>
+
+    <h3>Website oficial</h3>
+    <a href="{{ tecnologia.website_oficial }}">{{ tecnologia.nome }}</a>
+
+{% endblock %}

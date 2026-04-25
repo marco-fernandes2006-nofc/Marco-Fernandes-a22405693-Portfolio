@@ -49,8 +49,8 @@ class Tecnologia(models.Model):
 
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
-    descricao = models.TextField()
-    logo = models.ImageField(upload_to='tecnologias/', null=True, blank=True)
+    descricao = models.TextField(blank=True)
+    logo = models.ImageField(upload_to='portfolio/tecnologias', null=True, blank=True)
     website_oficial = models.URLField(blank=True)
 
     def __str__(self):
@@ -110,7 +110,7 @@ class Competencia(models.Model):
 
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50, choices=TIPO_CHOICES)
-    descricao = models.TextField()
+    descricao = models.TextField(blank=True)
     nivel = models.CharField(max_length=20, choices=NIVEL_CHOICES)
 
     def __str__(self):
@@ -158,6 +158,7 @@ class MakingOf(models.Model):
 # ======================
 class ContribuicaoOpenSource(models.Model):
     nome = models.CharField(max_length=150)
+    nome_projeto = models.CharField(max_length=150, blank=True)
     descricao_projeto = models.TextField()
 
     repositorio = models.URLField(blank=True)

@@ -1,0 +1,25 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>Formações</h2>
+
+<section>
+    {% for formacao in formacoes %}
+    <article>
+        <header>
+            <h3>{{ formacao.nome }} - {{ formacao.get_tipo_display }}</h3>
+            <h4>Instituição: {{ formacao.instituicao }}</h4>
+            <h4>{{ formacao.data_inicio }} - {{ formacao.data_fim}}</h4>
+            <h3>Descrição</h3>
+            <p>{{ formacao.descricao }}</p>
+        </header>
+    </article>
+    {% empty %}
+
+    <h3>Sem formações atualmente</h3>
+
+    {% endfor %}
+</section>
+{% endblock %}

@@ -23,8 +23,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("portfolio/", include("portfolio.urls")),
+    path("", include("portfolio.urls")), #  rota para app portfolio sem precisar de escrever "portfolio"
     path("escola/", include("escola.urls")),
-    path("", include("escola.urls")),  #  rota para app escola sem precisar de escrever "escola" 
 ]
 
 if settings.DEBUG:

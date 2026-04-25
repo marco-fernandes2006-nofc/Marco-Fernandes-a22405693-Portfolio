@@ -1,0 +1,34 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>Contribuições Open-Source</h2>
+
+<section>
+    {% for contribuicao in contribuicoes %}
+    <article>
+        <header>
+            <h3>{{ contribuicao.nome }}</h3>
+            <h3>Project: {{ contribuicao.nome_projeto }}</h3>
+            <h3>Descrição</h3>
+            <p>{{ contribuicao.descricao_projeto }}</p>
+            <h3>Descrição da contribuição</h3>
+            <p>{{ contribuicao.descricao_contribuicao }}</p>
+            <h4>Repositório Oficial</h4>
+            <a href="{{ contribuicao.repositorio }}" target="_blank">{{ contribuicao.nome_projeto }} Repository</a>
+
+            {% if contribuicao.website_oficial %}
+                <h4>Website Oficial do projeto</h4>
+                <a href="{{ contribuicao.website_oficial }}" target="_blank">{{ contribuicao.nome_projeto }} Website</a>
+            {% endif %}
+
+        </header>
+    </article>
+    {% empty %}
+
+    <h3>Sem formações atualmente</h3>
+
+    {% endfor %}
+</section>
+{% endblock %}

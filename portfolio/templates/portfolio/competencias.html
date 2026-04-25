@@ -1,0 +1,20 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>Competências</h2>
+
+<section>
+    {% for competencia in competencias %}
+    <article>
+        <header>
+            <h3>{{ competencia.nome }} - {{ competencia.get_tipo_display }}</h3>
+            <h4>Nivel: {{ competencia.get_nivel_display }}</h4>
+            <h3>Descrição</h3>
+            <p>{{ competencia.descricao }}</p>
+        </header>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

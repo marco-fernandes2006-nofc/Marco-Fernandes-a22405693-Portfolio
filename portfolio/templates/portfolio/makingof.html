@@ -1,0 +1,19 @@
+<!-- templates/escola/curso.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+    <h2>Making OF {{ makingof.id }} - {{ makingof.projeto.nome }}</h2>
+    
+    <h3>Descrição</h3>
+    <p>{{ makingof.descricao }}</p>
+
+    <h3>Erros</h3>
+    <p>{{ makingof.erros }}</p>
+
+    <h3>Justificação de opções</h3>
+    <p>{{ makingof.justificacao_opcoes }}</p>
+
+    <img src="{{ makingof.imagem.url }}" alt="makingof {{ makingof.id }} imagem" width="800" height="600">
+
+{% endblock %}

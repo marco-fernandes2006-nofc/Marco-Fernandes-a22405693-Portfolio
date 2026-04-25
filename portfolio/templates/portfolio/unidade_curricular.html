@@ -1,0 +1,14 @@
+<!-- templates/escola/curso.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+    <h2>{{ unidade_curricular }} </h2>
+    
+    <h3>Descrição</h3>
+    <p>{{ unidade_curricular.descricao }}</p>
+
+    <h3>{{ unidade_curricular.ano_curricular }}º ano - {{ unidade_curricular.get_semestre_display }}</h3>
+
+    <h3>Licenciatura: {{ unidade_curricular.licenciatura }}</h3>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>Licenciaturas</h2>
+
+<section>
+    {% for licenciatura in licenciaturas %}
+    <article>
+        <header>
+            <h3>{{ licenciatura.nome }} - {{ licenciatura.sigla }}</h3>
+            <p>Duração: {{ licenciatura.duracao_anos }} anos</p>
+            <p>Descrição: {{ licenciatura.descricao }}</p>
+        </header>
+
+        <section>
+            <h4>Unidades Curriculares</h4>
+            <ul>
+                {% for uc in licenciatura.unidadecurricular_set.all %}
+                    <li>
+                        <a href="{% url 'unidade_curricular' uc.id %}">
+                        {{ uc.nome }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

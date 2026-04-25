@@ -1,0 +1,20 @@
+<!-- templates/escola/cursos.html -->    
+
+{% extends "portfolio/base.html" %}
+    
+{% block content %}
+<h2>MakingOFs</h2>
+
+<section>
+    {% for makingof in makingofs %}
+    <a href="{% url 'makingof' makingof.id %}">
+        <article>
+            <header>
+                <h3>Making OF {{ makingof.id }} - {{ makingof.projeto.nome }}</h3>
+            </header>
+        </article>
+    </a>
+
+    {% endfor %}
+</section>
+{% endblock %}
