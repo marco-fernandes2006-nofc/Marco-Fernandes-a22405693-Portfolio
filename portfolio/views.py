@@ -1,23 +1,73 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
 
+# ======================
+# LICENCIATURA
+# ======================
 def licenciaturas_view(request):
     
     licenciaturas = Licenciatura.objects.all()
 
     return render(request, 'portfolio/licenciaturas.html', {'licenciaturas': licenciaturas})
 
+# ======================
+# UNIDADE CURRICULAR
+# ======================
 def unidade_curricular_view(request, id):
 
     unidade_curricular = UnidadeCurricular.objects.get(id=id)
 
     return render(request, 'portfolio/unidade_curricular.html', {'unidade_curricular': unidade_curricular})
 
+# ======================
+# PROJETO
+# ======================
 def projetos_view(request):
 
     projetos = Projeto.objects.all()
 
     return render(request, 'portfolio/projetos.html', {'projetos': projetos})
+
+def editar_projeto_view(request, id) :
+
+    projeto = Projeto.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ProjetoForm(request.POST, instance=projeto)
+        if form.is_valid():
+            form.save()
+            return redirect('projetos')
+    else:
+        form = ProjetoForm(instance=projeto)
+
+    return render(request, 'portfolio/editar_projeto.html', {'form': form, 'projeto': projeto})
+
+def criar_projeto_view(request):
+
+    if request.method == 'POST':
+        form = ProjetoForm(request.POST)
+        if form.is_valid():
+            projeto = form.save()
+            return redirect('projetos')
+    else:
+        form = ProjetoForm()
+
+    return render(request, 'portfolio/criar_projeto.html', {'form': form})
+
+def apagar_projeto_view(request, id):
+    projeto = Projeto.objects.get(id=id)
+    projeto.delete()
+    return redirect('projetos')
+
+# ======================
+# TECNOLOGIA
+# ======================
+
+def tecnologias_view(request):
+    tecnologias = Tecnologia.objects.all()
+
+    return render(request, 'portfolio/tecnologias.html', {'tecnologias': tecnologias})
 
 def tecnologia_view(request, id):
 
@@ -25,24 +75,128 @@ def tecnologia_view(request, id):
 
     return render(request, 'portfolio/tecnologia.html', {'tecnologia': tecnologia})
 
+def editar_tecnologia_view(request, id):
+    tecnologia = Tecnologia.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = TecnologiaForm(request.POST, request.FILES, instance=tecnologia)
+        if form.is_valid():
+            form.save()
+            return redirect('tecnologia', id=id)
+    else:
+        form = TecnologiaForm(instance=tecnologia)
+    
+    return render(request, 'portfolio/editar_tecnologia.html', {'form':form, 'tecnologia':tecnologia})
+
+def criar_tecnologia_view(request):
+    
+    if request.method == 'POST':
+        form = TecnologiaForm(request.POST)
+        if form.is_valid():
+            tecnologia = form.save()
+            return redirect('tecnologia', id=tecnologia.id)
+    else:
+        form = TecnologiaForm()
+    
+    return render(request, 'portfolio/criar_tecnologia.html', {'form':form})
+
+def apagar_tecnologia_view(request, id):
+    tecnologia = Tecnologia.objects.get(id=id)
+    tecnologia.delete()
+    return redirect('tecnologias')
+
+# ======================
+# TFCs
+# ======================
 def tfcs_view(request):
 
     tfcs = TFC.objects.all()
 
     return render(request, 'portfolio/tfcs.html', {'tfcs': tfcs})
 
+# ======================
+# COMPETÊNCIAS
+# ======================
 def competencias_view(request):
 
     competencias = Competencia.objects.all()
 
     return render(request, 'portfolio/competencias.html', {'competencias': competencias})
 
+def editar_competencia_view(request, id):
+    
+    competencia = Competencia.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = CompetenciaForm(request.POST, request.FILES, instance=competencia)
+        if form.is_valid():
+            form.save()
+            return redirect('competencias')
+    else:
+        form = CompetenciaForm(instance=competencia)
+    
+    return render(request, 'portfolio/editar_competencia.html', {'form': form, 'competencia': competencia})
+
+def criar_competencia_view(request):
+    
+    if request.method == 'POST':
+        form = CompetenciaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('competencias')
+    else:
+        form = CompetenciaForm()
+
+    return render(request, 'portfolio/criar_competencia.html', {'form': form})
+
+def apagar_competencia_view(request, id):
+    competencia = Competencia.objects.get(id=id)
+    competencia.delete()
+    return redirect('competencias')
+
+# ======================
+# FORMAÇÕES
+# ======================
 def formacoes_view(request):
 
     formacoes = Formacao.objects.all()
 
     return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
 
+def editar_formacao_view(request, id):
+    
+    formacao = Formacao.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = FormacaoForm(request.POST, request.FILES, instance=formacao)
+        if form.is_valid():
+            form.save()
+            return redirect('formacoes')
+    else:
+        form = FormacaoForm(instance=formacao)
+
+    return render(request, 'portfolio/editar_formacao.html', {'form': form, 'formacao': formacao})
+
+def criar_formacao_view(request):
+
+    if request.method == 'POST':
+        form = FormacaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('formacoes')
+    else:
+        form = FormacaoForm()
+    
+    return render(request, 'portfolio/criar_formacao.html', {'form': form})
+
+def apagar_formacao_view(request, id):
+    formacao = Formacao.objects.get(id=id)
+    formacao.delete()
+    return redirect('formacoes')
+
+# ======================
+# MAKING OFs
+# ======================
 def makingofs_view(request):
 
     makingofs = MakingOf.objects.all()
@@ -55,8 +209,45 @@ def makingof_view(request, id):
 
     return render(request, 'portfolio/makingof.html', {'makingof': makingof})
 
+# ======================
+# CONTRIBUIÇÕES OPEN SOURCE
+# ======================
 def contribuicoes_view(request):
 
     contribuicoes = ContribuicaoOpenSource.objects.all()
 
     return render(request, 'portfolio/contribuicoes.html', {'contribuicoes': contribuicoes})
+
+# ======================
+# LANDING PAGE
+# ======================
+def landing_page_view(request):
+    
+    tecnologias = [ tec for tec in Tecnologia.objects.all() if tec.portfolio ]
+    makingofs = [ makingof for makingof in MakingOf.objects.all() if makingof.portfolio ]
+
+    conteudo = {
+        'tecnologias': tecnologias,
+        'makingofs': makingofs,
+        'markdown1': """
+# Sobre esta Aplicação
+
+## Modelação
+
+""",
+        'markdown2': """
+## Tecnologias
+
+""",
+        'markdown3': """
+## Repositório Github
+
+[Repositório](https://github.com/marco-fernandes2006-nofc/Marco-Fernandes-a22405693-Portfolio)
+
+## Making-OFs
+
+"""
+        
+    }
+    
+    return render(request, 'portfolio/landing_page.html', {'conteudo': conteudo})

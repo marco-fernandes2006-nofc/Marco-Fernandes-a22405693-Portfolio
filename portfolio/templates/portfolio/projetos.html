@@ -5,6 +5,10 @@
 {% block content %}
 <h2>Projetos</h2>
 
+
+<a href="{% url 'criar_projeto' %}"><button>Criar Projeto</button></a>
+
+
 <section>
     {% for projeto in projetos %}
     <article>
@@ -30,6 +34,10 @@
             </ul>
             <h3>Unidade curricular: {{ projeto.unidade_curricular }}</h3>
         </section>
+        
+        <a href="{% url 'editar_projeto' projeto.id %}"><button>Editar Projeto</button></a>
+        <a href="{% url 'apagar_projeto' projeto.id %}"><button>Apagar Projeto</button></a>
+
     </article>
     {% endfor %}
 </section>

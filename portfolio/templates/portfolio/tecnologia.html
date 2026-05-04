@@ -4,13 +4,16 @@
     
 {% block content %}
     <h2>{{ tecnologia.nome }} - {{ tecnologia.get_tipo_display }}</h2>
-
-    <img src="{{ tecnologias.logo.url }}" alt="Imagem do logotipo {{ tecnologia.logo.name }}">
-    
+    {% if tecnologias.logo.url %}
+        <img src="{{ tecnologias.logo.url }}" alt="Imagem do logotipo {{ tecnologia.logo.name }}">
+    {% endif %}
     <h3>Descrição</h3>
     <p>{{ tecnologia.descricao }}</p>
 
     <h3>Website oficial</h3>
     <a href="{{ tecnologia.website_oficial }}">{{ tecnologia.nome }}</a>
+
+    <a href="{% url 'editar_tecnologia' tecnologia.id %}"><button>Editar Tecnologia</button></a>
+    <a href="{% url 'apagar_tecnologia' tecnologia.id %}"><button>Apagar Tecnologia</button></a>
 
 {% endblock %}

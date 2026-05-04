@@ -1,0 +1,41 @@
+{% extends 'portfolio/base.html' %}
+{% load markdownify %}
+
+{% block content %}
+
+<section>
+    {{ conteudo.markdown1 | markdownify }}
+
+    <img src="media/portfolio/der.png" alt="Diagrama DER" width="800" height="600">
+
+    {{ conteudo.markdown2 | markdownify }}
+
+    {% for tecnologia in conteudo.tecnologias %}    
+    <article>
+        <a href="">
+            <header>
+                <h3><strong>{{ tecnologia.nome }} - {{ tecnologia.get_tipo_display }}</strong></h3>
+            </header>
+        </a>
+    </article>
+    {% endfor %}
+
+    {{ conteudo.markdown3 | markdownify }}
+
+    {% for makingof in conteudo.makingofs %}
+    <article>
+        <h3>Descrição</h3>
+        {{ makingof.descricao | markdownify}}
+        <h3>Erros</h3>
+        {{ makingof.erros | markdownify}}
+        <h3>Justificação de opções</h3>
+        {{ makingof.justificacao_opcoes | markdownify}}
+
+        {% if makingof.imagem %}
+        <img src="{{ makingof.imagem.url }}" alt="makingof {{ makingof.id }} imagem" width="800" height="600">
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+
+{% endblock %}

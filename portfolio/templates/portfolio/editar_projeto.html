@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<article>
+    <h2>Editar Projeto</h2>
+    <p><strong>Projeto atual:</strong> {{ projeto.nome }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+</article>
+{% endblock %}

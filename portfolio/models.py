@@ -52,6 +52,7 @@ class Tecnologia(models.Model):
     descricao = models.TextField(blank=True)
     logo = models.ImageField(upload_to='portfolio/tecnologias', null=True, blank=True)
     website_oficial = models.URLField(blank=True)
+    portfolio = models.BooleanField()
 
     def __str__(self):
         return self.nome
@@ -148,6 +149,7 @@ class MakingOf(models.Model):
     justificacao_opcoes = models.TextField()
     imagem = models.ImageField(upload_to='portfolio/makingof', blank=True)
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
+    portfolio = models.BooleanField()
 
     def __str__(self):
         return f"MakingOf - {self.projeto.nome}"

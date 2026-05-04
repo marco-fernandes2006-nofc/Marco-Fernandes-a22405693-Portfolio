@@ -5,16 +5,21 @@
 {% block content %}
 <h2>Formações</h2>
 
+<a href="{% url 'criar_formacao' %}"><button>Criar Formação</button></a>
+
 <section>
     {% for formacao in formacoes %}
     <article>
         <header>
-            <h3>{{ formacao.nome }} - {{ formacao.get_tipo_display }}</h3>
+            <h3>{{ formacao.titulo }} - {{ formacao.get_tipo_display }}</h3>
             <h4>Instituição: {{ formacao.instituicao }}</h4>
             <h4>{{ formacao.data_inicio }} - {{ formacao.data_fim}}</h4>
             <h3>Descrição</h3>
             <p>{{ formacao.descricao }}</p>
         </header>
+
+        <a href="{% url 'editar_formacao' formacao.id %}"><button>Editar</button></a>
+        <a href="{% url 'apagar_formacao' formacao.id %}"><button>Apagar</button></a>
     </article>
     {% empty %}
 

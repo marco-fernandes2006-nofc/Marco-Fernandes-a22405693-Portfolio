@@ -1,0 +1,20 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+    <h2>Tecnologias</h2>
+    <a href="{% url 'criar_tecnologia' %}"><button>Criar Tecnologia</button></a>
+    <section>
+        {% for tecnologia in tecnologias %}
+        <article>
+            <a href="{% url 'tecnologia' tecnologia.id %}">
+                <header>
+                    <h3>{{ tecnologia.nome }} - {{ tecnologia.get_tipo_display }}</h3>
+                    {% if tecnologias.logo.url %}
+                    <img src="{{ tecnologias.logo.url }}" alt="Imagem do logotipo {{ tecnologia.logo.name }}">
+                {% endif %}
+                </header>
+            </a>
+        </article>
+        {% endfor %}
+    </section>
+{% endblock %}
