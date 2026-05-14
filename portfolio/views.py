@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
+from django.contrib.auth.decorators import login_required
 
 # ======================
 # LICENCIATURA
@@ -29,6 +30,7 @@ def projetos_view(request):
 
     return render(request, 'portfolio/projetos.html', {'projetos': projetos})
 
+@login_required
 def editar_projeto_view(request, id) :
 
     projeto = Projeto.objects.get(id=id)
@@ -43,6 +45,7 @@ def editar_projeto_view(request, id) :
 
     return render(request, 'portfolio/editar_projeto.html', {'form': form, 'projeto': projeto})
 
+@login_required
 def criar_projeto_view(request):
 
     if request.method == 'POST':
@@ -55,6 +58,7 @@ def criar_projeto_view(request):
 
     return render(request, 'portfolio/criar_projeto.html', {'form': form})
 
+@login_required
 def apagar_projeto_view(request, id):
     projeto = Projeto.objects.get(id=id)
     projeto.delete()
@@ -67,14 +71,15 @@ def apagar_projeto_view(request, id):
 def tecnologias_view(request):
     tecnologias = Tecnologia.objects.all()
 
-    return render(request, 'portfolio/tecnologias.html', {'tecnologias': tecnologias})
+    return render(request, 'portfolio/tecnologias.html', {'tecnologias': tecnologias, 'gestor': is_gestor(request.user)})
 
 def tecnologia_view(request, id):
 
     tecnologia = Tecnologia.objects.get(id=id)
 
-    return render(request, 'portfolio/tecnologia.html', {'tecnologia': tecnologia})
+    return render(request, 'portfolio/tecnologia.html', {'tecnologia': tecnologia, 'gestor': is_gestor(request.user)})
 
+@login_required
 def editar_tecnologia_view(request, id):
     tecnologia = Tecnologia.objects.get(id=id)
 
@@ -88,6 +93,7 @@ def editar_tecnologia_view(request, id):
     
     return render(request, 'portfolio/editar_tecnologia.html', {'form':form, 'tecnologia':tecnologia})
 
+@login_required
 def criar_tecnologia_view(request):
     
     if request.method == 'POST':
@@ -100,6 +106,7 @@ def criar_tecnologia_view(request):
     
     return render(request, 'portfolio/criar_tecnologia.html', {'form':form})
 
+@login_required
 def apagar_tecnologia_view(request, id):
     tecnologia = Tecnologia.objects.get(id=id)
     tecnologia.delete()
@@ -121,8 +128,9 @@ def competencias_view(request):
 
     competencias = Competencia.objects.all()
 
-    return render(request, 'portfolio/competencias.html', {'competencias': competencias})
+    return render(request, 'portfolio/competencias.html', {'competencias': competencias, 'gestor': is_gestor(request.user)})
 
+@login_required
 def editar_competencia_view(request, id):
     
     competencia = Competencia.objects.get(id=id)
@@ -137,6 +145,7 @@ def editar_competencia_view(request, id):
     
     return render(request, 'portfolio/editar_competencia.html', {'form': form, 'competencia': competencia})
 
+@login_required
 def criar_competencia_view(request):
     
     if request.method == 'POST':
@@ -149,6 +158,7 @@ def criar_competencia_view(request):
 
     return render(request, 'portfolio/criar_competencia.html', {'form': form})
 
+@login_required
 def apagar_competencia_view(request, id):
     competencia = Competencia.objects.get(id=id)
     competencia.delete()
@@ -161,8 +171,9 @@ def formacoes_view(request):
 
     formacoes = Formacao.objects.all()
 
-    return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
+    return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes, 'gestor': is_gestor(request.user)})
 
+@login_required
 def editar_formacao_view(request, id):
     
     formacao = Formacao.objects.get(id=id)
@@ -177,6 +188,7 @@ def editar_formacao_view(request, id):
 
     return render(request, 'portfolio/editar_formacao.html', {'form': form, 'formacao': formacao})
 
+@login_required
 def criar_formacao_view(request):
 
     if request.method == 'POST':
@@ -189,6 +201,7 @@ def criar_formacao_view(request):
     
     return render(request, 'portfolio/criar_formacao.html', {'form': form})
 
+@login_required
 def apagar_formacao_view(request, id):
     formacao = Formacao.objects.get(id=id)
     formacao.delete()
@@ -251,3 +264,10 @@ def landing_page_view(request):
     }
     
     return render(request, 'portfolio/landing_page.html', {'conteudo': conteudo})
+
+# ======================
+# UTILS
+# ======================
+
+def is_gestor(user):
+    return user.groups.filter(name="gestor").exists()

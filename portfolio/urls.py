@@ -1,6 +1,6 @@
 ## escola/urls.py
 
-from django.urls import path
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
@@ -37,5 +37,7 @@ urlpatterns = [
 
     path('contribuicoes/', views.contribuicoes_view, name="contribuicoes"),
 
-    path('', views.landing_page_view, name="landing_page")
+    path('', views.landing_page_view, name="landing_page"),
+
+    path("accounts/", include("accounts.urls")),
 ]

@@ -5,9 +5,9 @@
 {% block content %}
 <h2>Projetos</h2>
 
-
+{% if request.user.is_authenticated and gestor %}
 <a href="{% url 'criar_projeto' %}"><button>Criar Projeto</button></a>
-
+{% endif %}
 
 <section>
     {% for projeto in projetos %}
@@ -35,9 +35,10 @@
             <h3>Unidade curricular: {{ projeto.unidade_curricular }}</h3>
         </section>
         
+        {% if request.user.is_authenticated and gestor %}
         <a href="{% url 'editar_projeto' projeto.id %}"><button>Editar Projeto</button></a>
         <a href="{% url 'apagar_projeto' projeto.id %}"><button>Apagar Projeto</button></a>
-
+        {% endif %}
     </article>
     {% endfor %}
 </section>
