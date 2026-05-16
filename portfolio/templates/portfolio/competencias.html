@@ -5,7 +5,9 @@
 {% block content %}
 <h2>Competências</h2>
 {% if request.user.is_authenticated and gestor %}
-<a href="{%url 'criar_competencia' %}"><button>Criar competência</button></a>
+<div class="criar-artigo">
+    <a href="{%url 'criar_competencia' %}"><button>Criar competência</button></a>
+</div>
 {% endif %}
 <section>
     {% for competencia in competencias %}
@@ -17,8 +19,10 @@
             <p>{{ competencia.descricao }}</p>
         </header>
         {% if request.user.is_authenticated and gestor %}
-        <a href="{% url 'editar_competencia' competencia.id %}"><button>Editar</button></a>
-        <a href="{% url 'apagar_competencia' competencia.id %}"><button>Apagar</button></a>
+        <div class="actions">
+            <a href="{% url 'editar_competencia' competencia.id %}"><button>Editar</button></a>
+            <a href="{% url 'apagar_competencia' competencia.id %}"><button>Apagar</button></a>
+        </div>
         {% endif %}
     </article>
     {% endfor %}

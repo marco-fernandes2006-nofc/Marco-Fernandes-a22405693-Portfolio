@@ -5,7 +5,9 @@
 {% block content %}
 <h2>Formações</h2>
 {% if request.user.is_authenticated and gestor %}
-<a href="{% url 'criar_formacao' %}"><button>Criar Formação</button></a>
+<div class="criar-artigo">
+    <a href="{% url 'criar_formacao' %}"><button>Criar Formação</button></a>
+</div>
 {% endif %}
 <section>
     {% for formacao in formacoes %}
@@ -18,8 +20,10 @@
             <p>{{ formacao.descricao }}</p>
         </header>
         {% if request.user.is_authenticated and gestor %}
-        <a href="{% url 'editar_formacao' formacao.id %}"><button>Editar</button></a>
-        <a href="{% url 'apagar_formacao' formacao.id %}"><button>Apagar</button></a>
+        <div class="actions">
+            <a href="{% url 'editar_formacao' formacao.id %}"><button>Editar</button></a>
+            <a href="{% url 'apagar_formacao' formacao.id %}"><button>Apagar</button></a>
+        </div>
         {% endif %}
     </article>
     {% empty %}

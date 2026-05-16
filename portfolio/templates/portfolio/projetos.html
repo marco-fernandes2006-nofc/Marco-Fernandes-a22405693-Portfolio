@@ -6,7 +6,9 @@
 <h2>Projetos</h2>
 
 {% if request.user.is_authenticated and gestor %}
-<a href="{% url 'criar_projeto' %}"><button>Criar Projeto</button></a>
+<div class="criar-artigo">
+   <a href="{% url 'criar_projeto' %}"><button>Criar Projeto</button></a> 
+</div>
 {% endif %}
 
 <section>
@@ -36,8 +38,10 @@
         </section>
         
         {% if request.user.is_authenticated and gestor %}
-        <a href="{% url 'editar_projeto' projeto.id %}"><button>Editar Projeto</button></a>
-        <a href="{% url 'apagar_projeto' projeto.id %}"><button>Apagar Projeto</button></a>
+        <div class="actions">
+            <a href="{% url 'editar_projeto' projeto.id %}"><button>Editar Projeto</button></a>
+            <a href="{% url 'apagar_projeto' projeto.id %}"><button>Apagar Projeto</button></a> 
+        </div>
         {% endif %}
     </article>
     {% endfor %}

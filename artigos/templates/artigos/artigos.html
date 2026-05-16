@@ -2,8 +2,9 @@
 
 {% block content %}
 <h2>Artigos</h2>
-
-<a href="{% url 'criar_artigo' %}"><button>Criar artigo</button></a>
+<div class="criar-artigo">
+    <a href="{% url 'criar_artigo' %}"><button>Criar artigo</button></a>
+</div>
 
 <section>
     {% for artigo in artigos %}

@@ -3,7 +3,9 @@
 {% block content %}
     <h2>Tecnologias</h2>
     {% if request.user.is_authenticated and gestor %}
-    <a href="{% url 'criar_tecnologia' %}"><button>Criar Tecnologia</button></a>
+    <div class="criar-artigo">
+        <a href="{% url 'criar_tecnologia' %}"><button>Criar Tecnologia</button></a>
+    </div>
     {% endif %}
     <section>
         {% for tecnologia in tecnologias %}

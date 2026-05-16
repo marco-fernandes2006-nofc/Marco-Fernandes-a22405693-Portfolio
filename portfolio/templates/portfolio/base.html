@@ -9,29 +9,97 @@
     
     <!-- link para ficheiro styles.css com regras de estilização -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}?v=99">
 </head>
 <body>
     <header>
-        <h1>Portfolio</h1>
-        <nav>
-            <a href="{% url 'landing_page' %}">Sobre</a>
-            <a href="{% url 'licenciaturas' %}">Licenciaturas</a>
-            <a href="{% url 'projetos' %}">Projetos</a>
-            <a href="{% url 'tfcs' %}">TFCs</a>
-            <a href="{% url 'competencias' %}">Competências</a>
-            <a href="{% url 'formacoes' %}">Formações</a>
-            <a href="{% url 'makingofs' %}">MakingOFs</a>
-            <a href="{% url 'contribuicoes' %}">Contribuições Open-Source</a>
-            <a href="{% url 'tecnologias' %}">Tecnologias</a>
-            <a href="{% url 'artigos' %}">Artigos</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-        </nav>
+        <div class="topbar">
+            <a
+                class="{% if request.resolver_match.url_name == 'landing_page' %}active{% endif %}"
+                href="{% url 'landing_page' %}"
+                >
+            <h1>Portfolio</h1>
+            </a>
+
+            <div class="auth-links">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="navbar">
+
+            <div class="nav-indicator"></div>
+
+            <nav>
+                <a
+                class="{% if request.resolver_match.url_name == 'licenciaturas' %}active{% endif %}"
+                href="{% url 'licenciaturas' %}"
+                >
+                    Licenciaturas
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'projetos' %}active{% endif %}"
+                href="{% url 'projetos' %}"
+                >
+                    Projetos
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'tfcs' %}active{% endif %}"
+                href="{% url 'tfcs' %}"
+                >
+                    TFCs
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'competencias' %}active{% endif %}"
+                href="{% url 'competencias' %}"
+                >
+                    Competências
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'formacoes' %}active{% endif %}"
+                href="{% url 'formacoes' %}"
+                >
+                    Formações
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'makingofs' %}active{% endif %}"
+                href="{% url 'makingofs' %}"
+                >
+                    MakingOFs
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'contribuicoes' %}active{% endif %}"
+                href="{% url 'contribuicoes' %}"
+                >
+                    Contribuições Open-Source
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'tecnologias' %}active{% endif %}"
+                href="{% url 'tecnologias' %}"
+                >
+                    Tecnologias
+                </a>
+
+                <a
+                class="{% if request.resolver_match.url_name == 'artigos' %}active{% endif %}"
+                href="{% url 'artigos' %}"
+                >
+                    Artigos
+                </a>
+            </nav>
+        </div>
+        
     </header>
 
 
@@ -45,5 +113,76 @@
         <p>&copy; 2026</p>
     </footer>
 
+    <script>
+
+        const navbar = document.querySelector(".navbar");
+        const indicator = document.querySelector(".nav-indicator");
+        const links = document.querySelectorAll(".navbar nav a");
+
+        function moveIndicator(element) {
+
+            const navRect = navbar.getBoundingClientRect();
+            const rect = element.getBoundingClientRect();
+
+            indicator.style.width = `${rect.width}px`;
+
+            indicator.style.opacity = "1";
+
+            indicator.style.transform =
+                `translate(${rect.left - navRect.left}px, -50%)`;
+        }
+
+        function hideIndicator() {
+            indicator.style.opacity = "0";
+        }
+
+        /* LINK ATIVO */
+        const activeLink =
+            document.querySelector(".navbar nav a.active");
+
+        /* SEM ANIMAÇÃO NO LOAD */
+        indicator.style.transition = "none";
+
+        if (activeLink) {
+            moveIndicator(activeLink);
+        } else {
+            hideIndicator();
+        }
+
+        /* força reflow */
+        indicator.offsetHeight;
+
+        /* reativa animação */
+        indicator.style.transition =
+            "transform 0.25s ease, width 0.25s ease, opacity 0.2s ease";
+
+        /* HOVER */
+        links.forEach(link => {
+
+            link.addEventListener("mouseenter", () => {
+                moveIndicator(link);
+            });
+
+            link.addEventListener("mouseleave", () => {
+
+                if (activeLink) {
+                    moveIndicator(activeLink);
+                } else {
+                    hideIndicator();
+                }
+            });
+        });
+
+        /* SAIR NAVBAR */
+        navbar.addEventListener("mouseleave", () => {
+
+            if (activeLink) {
+                moveIndicator(activeLink);
+            } else {
+                hideIndicator();
+            }
+        });
+
+    </script>
 </body>
 </html>

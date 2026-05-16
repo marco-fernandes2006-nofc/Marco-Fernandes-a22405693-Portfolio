@@ -14,8 +14,10 @@
     <a href="{{ tecnologia.website_oficial }}">{{ tecnologia.nome }}</a>
 
     {% if request.user.is_authenticated and gestor %}
+    <div class="actions">
         <a href="{% url 'editar_tecnologia' tecnologia.id %}"><button>Editar Tecnologia</button></a>
         <a href="{% url 'apagar_tecnologia' tecnologia.id %}"><button>Apagar Tecnologia</button></a>
+    </div>
     {% endif %}
 
 {% endblock %}

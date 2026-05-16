@@ -14,11 +14,13 @@
             {% endif %}
             <p>- {{ artigo.autor.username }}</p>
             <p>Criado a {{ artigo.data_criacao|date:"d/m/Y" }} ás {{ artigo.data_criacao|date:"H:i" }} horas.</p>
-            <p><a href="{% url 'like_artigo' artigo.id %}"><button>👍</button></a>{{ artigo.total_likes }}</p>
+            <p><a href="{% url 'like_artigo' artigo.id %}"><button>👍 {{ artigo.total_likes }}</button></a></p>
         </header>
         {% if request.user.is_authenticated and autor %}
-        <a href="{% url 'editar_artigo' artigo.id %}"><button>Editar</button></a>
-        <a href="{% url 'apagar_artigo' artigo.id %}"><button>Apagar</button></a>
+        <div class="actions">
+            <a href="{% url 'editar_artigo' artigo.id %}"><button>Editar</button></a>
+            <a href="{% url 'apagar_artigo' artigo.id %}"><button>Apagar</button></a> 
+        </div>
         {% endif %}
     </article>
 
@@ -27,13 +29,15 @@
         <textarea name="texto" placeholder="Digite seu comentário..."></textarea>
         <button type="submit">Comentar</button>
     </form>
-    
+
     <ul>
         {% for comentario in artigo.comentarios.all %}
-        <li>
-            <p>{{ comentario.texto }}</p>
-            <p>- {{ comentario.autor.username }}</p>
-        </li>
+        <div class="comentario">
+            <li>
+                <p>{{ comentario.texto }}</p>
+                <p>- {{ comentario.autor.username }}</p>
+            </li>
+        </div>
         {% endfor %}
     </ul>
 </selection>
