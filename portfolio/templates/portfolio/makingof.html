@@ -7,13 +7,16 @@
     
     <h3>Descrição</h3>
     <p>{{ makingof.descricao }}</p>
-
+    {% if makingof.erros %}
     <h3>Erros</h3>
     <p>{{ makingof.erros }}</p>
-
+    {% endif %}
+    {% if makingof.justificacao_opcoes %}
     <h3>Justificação de opções</h3>
     <p>{{ makingof.justificacao_opcoes }}</p>
-
+    {% endif %}
+    {% if makingof.imagem %}
     <img src="{{ makingof.imagem.url }}" alt="makingof {{ makingof.id }} imagem" width="800" height="600">
+    {% endif %}
 
 {% endblock %}

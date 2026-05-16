@@ -26,10 +26,14 @@
     <article>
         <h3>Descrição</h3>
         {{ makingof.descricao | markdownify}}
+        {% if makingof.erros %}
         <h3>Erros</h3>
         {{ makingof.erros | markdownify}}
+        {% endif %}
+        {% if makingof.justificacao_opcoes %}
         <h3>Justificação de opções</h3>
         {{ makingof.justificacao_opcoes | markdownify}}
+        {% endif %}
 
         {% if makingof.imagem %}
         <img src="{{ makingof.imagem.url }}" alt="makingof {{ makingof.id }} imagem" width="800" height="600">

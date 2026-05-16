@@ -145,8 +145,8 @@ class Formacao(models.Model):
 # ======================
 class MakingOf(models.Model):
     descricao = models.TextField()
-    erros = models.TextField()
-    justificacao_opcoes = models.TextField()
+    erros = models.TextField(blank=True)
+    justificacao_opcoes = models.TextField(blank=True)
     imagem = models.ImageField(upload_to='portfolio/makingof', blank=True)
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
     portfolio = models.BooleanField()
