@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterForm
+from django.contrib.auth.models import Group
 
 def login_view(request):
     form = AuthenticationForm(request, data=request.POST or None)
@@ -14,6 +15,12 @@ def login_view(request):
             
             if user is not None:
                 login(request, user)
+
+                next_url = request.GET.get('next')
+
+                if next_url:
+                    return redirect(next_url)
+
                 return redirect('landing_page')
             
     return render(request, 'accounts/login.html', {'form': form})
@@ -28,6 +35,9 @@ def register_view(request):
     if request.method == 'POST':
         if form.is_valid():
             user = form.save()
+
+            grupo = Group.objects.get(name="autores")
+            user.groups.add(grupo)
 
             login(request, user)
             

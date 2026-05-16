@@ -27,6 +27,7 @@ urlpatterns = [
     path("", include("portfolio.urls")), #  rota para app portfolio sem precisar de escrever "portfolio"
     path("escola/", include("escola.urls")),
     path("accounts/", include("accounts.urls")),
+    path("artigos/", include("artigos.urls")),
 ]
 
 if settings.DEBUG:

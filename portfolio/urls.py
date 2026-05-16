@@ -39,5 +39,6 @@ urlpatterns = [
 
     path('', views.landing_page_view, name="landing_page"),
 
-    path("accounts/", include("accounts.urls")),
+    path('accounts/', include("accounts.urls")),
+    path('artigos/', include("artigos.urls")),
 ]

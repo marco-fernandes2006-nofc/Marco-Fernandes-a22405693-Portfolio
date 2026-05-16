@@ -1,0 +1,24 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Artigos</h2>
+
+<a href="{% url 'criar_artigo' %}"><button>Criar artigo</button></a>
+
+<section>
+    {% for artigo in artigos %}
+    <article>
+        <a href="{% url 'artigo' artigo.id %}">
+            <header>
+                <h3>{{ artigo.texto|truncatewords:15 }}</h3>
+
+                <ul>
+                    <p>{{ artigo.total_likes }} likes</p>
+                    <p>- {{ artigo.autor.username }}</p>
+                </ul>
+            </header>
+        </a>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

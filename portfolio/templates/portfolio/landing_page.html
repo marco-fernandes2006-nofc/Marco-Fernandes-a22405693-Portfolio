@@ -12,7 +12,7 @@
 
     {% for tecnologia in conteudo.tecnologias %}    
     <article>
-        <a href="">
+        <a href="{% url 'tecnologia' tecnologia.id %}">
             <header>
                 <h3><strong>{{ tecnologia.nome }} - {{ tecnologia.get_tipo_display }}</strong></h3>
             </header>

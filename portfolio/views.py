@@ -52,7 +52,7 @@ def criar_projeto_view(request):
         form = ProjetoForm(request.POST)
         if form.is_valid():
             projeto = form.save()
-            return redirect('projetos')
+            return redirect('projeto', id=projeto.id)
     else:
         form = ProjetoForm()
 
