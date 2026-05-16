@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from httpx import request
 from .forms import RegisterForm
 from django.contrib.auth.models import Group
 
@@ -27,6 +28,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
+    
     return redirect('landing_page')
 
 def register_view(request):

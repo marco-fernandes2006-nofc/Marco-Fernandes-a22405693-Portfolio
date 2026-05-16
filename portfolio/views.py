@@ -28,7 +28,7 @@ def projetos_view(request):
 
     projetos = Projeto.objects.all()
 
-    return render(request, 'portfolio/projetos.html', {'projetos': projetos})
+    return render(request, 'portfolio/projetos.html', {'projetos': projetos, 'gestor': is_gestor(request.user)})
 
 @login_required
 def editar_projeto_view(request, id) :
